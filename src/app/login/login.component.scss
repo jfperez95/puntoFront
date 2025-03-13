@@ -1,0 +1,102 @@
+/* General Container Styling */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Usa altura mínima para evitar scroll */
+  background: radial-gradient(circle, #0a1f44, #0d316b, #103b87, #1250a3, #1663c8);
+  padding: 2rem;
+  overflow: hidden; /* Oculta cualquier scroll no deseado */
+  box-sizing: border-box;
+}
+
+/* Form Styling */
+form {
+  background-color: #f0f4f8;
+  padding: 3rem 2.5rem; /* Añade espacio extra vertical */
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 380px; /* Ajusta para que no se extienda demasiado */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Form Hover Effect */
+form:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Title Styling */
+h2 {
+  color: #1565c0;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* Logo Styling */
+.logo {
+  display: block;
+  margin: 0 auto 2rem auto; /* Centra la imagen y añade espacio inferior */
+  width: 120px; /* Ajusta el tamaño del logo */
+  height: auto;
+}
+
+/* Form Group Spacing */
+.form-group {
+  margin-bottom: 1.5rem;
+  width: 100%; /* Asegura que los inputs ocupen todo el ancho */
+}
+
+/* Input Styling */
+input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #90caf9;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box; /* Asegura que el padding no exceda el ancho */
+}
+
+/* Input Focus Effect */
+input:focus {
+  border-color: #42a5f5;
+  box-shadow: 0 0 5px rgba(66, 165, 245, 0.5);
+}
+
+/* Button Styling */
+button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #1e88e5;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  outline: none;
+  margin-top: 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Button Hover Effect */
+button:hover:not(:disabled) {
+  background-color: #1565c0;
+  transform: translateY(-3px);
+}
+
+/* Button Disabled Styling */
+button:disabled {
+  background-color: #90caf9;
+  cursor: not-allowed;
+  opacity: 0.8;
+}

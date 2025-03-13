@@ -1,0 +1,13 @@
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h2>Iniciar Sesión</h2>
+      <!-- <img class="logo" src="assets/img/02_Logo_Tigo_139x100.png" alt="Logo" /> -->
+      <div class="form-group">
+          <input type="email" formControlName="correo" placeholder="Correo">
+      </div>
+      <div class="form-group">
+          <input type="password" formControlName="password" placeholder="Contraseña">
+      </div>
+      <button type="submit" [disabled]="loginForm.invalid">Ingresar</button>
+  </form>
+</div>
