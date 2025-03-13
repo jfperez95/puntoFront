@@ -41,7 +41,7 @@ export class LoginComponent {
     })
   }
 
-  async onSubmit(){
+  onSubmit(){
     const formData = new FormData();
     formData.append('accion', 'seguridad.iniciarSesion');
     formData.append('correo', this.loginForm.value.correo);

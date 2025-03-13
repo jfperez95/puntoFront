@@ -1,0 +1,143 @@
+mat-toolbar {
+  background: #004a9f;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+mat-sidenav {
+  margin: 16px;
+  width: 200px;
+  border-right: none;
+  background: #002b5c;
+  color: white;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+.content {
+  height: calc(100vh - 98px);
+  border-radius: 10px;
+  margin: 16px;
+  margin-left: 32px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2rem;
+  color: lightgray;
+}
+
+mat-sidenav-container {
+  height: calc(100vh - 65px);
+}
+
+.menu-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1rem;
+
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+.avatar {
+  margin-top: 16px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.name {
+  margin-top: 8px;
+  font-weight: normal;
+}
+
+.designation {
+  margin-top: 2px;
+  font-size: 0.7rem;
+  color: lightgrey;
+}
+
+mat-divider {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+mat-toolbar {
+  display: flex;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1 1 auto; /* Permite que el spacer ocupe todo el espacio disponible */
+}
+
+mat-toolbar img {
+  height: 35px; /* Ajusta la altura si es necesario */
+  margin-right: 16px; /* Espacio opcional al lado derecho */
+}
+
+mat-sidenav {
+  margin: 16px;
+  width: 200px;
+  border-right: none;
+  background: #002b5c;
+  color: white;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo-section {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.logo {
+  max-width: 100px;
+  margin: 0 auto;
+}
+
+.menu-section {
+  margin-bottom: 16px;
+}
+
+.menu-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1rem;
+  padding: 8px;
+  margin-bottom: 8px; /* Espacio entre botones */
+}
+
+mat-icon {
+  margin-right: 8px;
+}
+
+mat-divider {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Ajustes específicos para la imagen en la barra de herramientas */
+mat-toolbar img {
+  height: 35px;
+  margin-right: 16px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

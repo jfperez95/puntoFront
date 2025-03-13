@@ -1,0 +1,52 @@
+<div>
+  <mat-toolbar class="mat-elevation-z8">
+    <button
+      mat-icon-button
+      *ngIf="sidenav.mode === 'over'"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+      <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+    </button>
+    <span class="spacer"></span>
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <!-- Menú lateral con botones -->
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+      <!-- Sección de logo -->
+      <div class="logo-section">
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Navegación principal -->
+      <div class="menu-section">
+        <button mat-button class="menu-button" (click)="navigateTo('/main')">
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </button>
+        <button mat-button class="menu-button" (click)="navigateTo('/formulario')">
+          <mat-icon>receipt</mat-icon>
+          <span>Formulario</span>
+        </button>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Ítem de cierre de sesión -->
+      <div class="menu-section">
+        <button mat-button class="menu-button" (click)="navigateTo('/login')">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Cerrar Sesión</span>
+        </button>
+      </div>
+    </mat-sidenav>
+
+    <!-- Contenido principal de la página -->
+    <mat-sidenav-content>
+      <!-- Usar router-outlet para renderizar páginas dinámicamente -->
+      <router-outlet />
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

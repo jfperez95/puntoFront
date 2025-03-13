@@ -1,0 +1,116 @@
+/* Estilo del título */
+.titulo {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bolder;
+  color: #004a9f;
+  margin-bottom: 20px;
+}
+
+/* Contenedor de la tabla */
+.table-container {
+  max-width: 90%; /* Máximo ancho de la tabla */
+  margin: auto; /* Centrar la tabla */
+  padding: 20px; /* Espacio interno */
+  background-color: #f9f9f9; /* Fondo suave */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  overflow-x: auto; /* Scroll horizontal si es necesario */
+}
+
+/* Contenedor de búsqueda */
+.crearBuscar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* Espacio inferior */
+}
+
+/* Ajustes del campo de búsqueda */
+mat-form-field {
+  width: 50%;
+  min-width: 300px;
+  max-width: 600px;
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse; /* Fusionar bordes de celdas */
+}
+
+/* Ajustar encabezados */
+.mat-header-cell {
+  background-color: #004a9f; /* Fondo del encabezado */
+  color: #fff; /* Texto blanco */
+  padding: 10px;
+  text-align: center; /* Centrar texto */
+}
+
+.mat-cell {
+  padding: 10px; /* Espaciado interno */
+  text-align: center; /* Centrar texto */
+  border-bottom: 1px solid #ddd; /* Línea de separación */
+  font-size: 14px; /* Ajustar tamaño del texto */
+}
+
+/* Ajuste de tamaño de fuente para columnas con fechas */
+.mat-cell.date-cell {
+  font-size: clamp(12px, 1.5vw, 16px);
+}
+
+/* Ajustar columna de estado */
+.estado {
+  font-weight: bold;
+}
+
+/* Colores para estados */
+.estado-aprobado {
+  background-color: rgb(17, 205, 17);
+  color: #fff;
+}
+
+.estado-en-analisis {
+  background-color: rgb(5, 135, 125);
+  color: #fff;
+}
+
+.estado-pendiente {
+  background-color: gray;
+  color: #fff;
+}
+
+.estado-en-gestion {
+  background-color: rgba(240, 98, 21, 0.922);
+  color: #fff;
+}
+
+.estado-en-pruebas {
+  background-color: rgb(19, 81, 156);
+  color: #fff;
+}
+
+.estado-pruebas-aprobadas {
+  background-color: rgb(19, 156, 92);
+  color: #fff;
+}
+
+.estado-cumplido {
+  background-color: orange;
+  color: #fff;
+}
+
+.estado-cancelado {
+  background-color: red;
+  color: #fff;
+}
+
+/* Ajuste del paginador */
+mat-paginator {
+  margin-top: 20px;
+  justify-content: center;
+}
+
+button {
+  margin: 5px;
+}

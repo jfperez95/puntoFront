@@ -1,0 +1,41 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="modern-form">
+  <h2>Registro de Citas</h2>
+
+  <div class="form-group">
+      <label for="accion">Forma de Verificacion de Usuario</label>
+      <select id="accion" formControlName="accion" (change)="valorAccion($event)">
+        <option value="" disabled selected>Seleccione una opción</option>
+        <option value="usuario.buscarClienteIdentificacionIntegracion">Identificacion</option>
+        <option value="usuario.buscarClienteCorreoIntegracion">Correo</option>
+      </select>
+  </div>
+
+  <div class="form-group">
+    <label for="user">Correo o Identificacion</label>
+    <input id="user" type="text" formControlName="user" placeholder="Ingrese Correo o Identificacion" (change)="verificarUsuario($event)">
+  </div>
+
+  <div class="form-group">
+    <label for="nombreCliente">Nombre</label>
+    <input id="nombreCliente" type="text" formControlName="nombreCliente">
+  </div>
+
+  <div class="form-group">
+      <label for="fechaCita">Feha Cita</label>
+      <input id="fechaCita" type="datetime-local" formControlName="fechaCita">
+  </div>
+
+  <div class="form-group">
+      <label for="idTecnico">Tecnico</label>
+      <select id="idTecnico" formControlName="idTecnico">
+        <option value="" disabled selected>Seleccione un tecnico</option>
+        <option *ngFor="let tecnico of this.tecnicos" [value]="tecnico.id">{{tecnico.nombre}}</option>
+      </select>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" [disabled]="!form.valid">Enviar</button>
+    <button type="button" (click)="onCancelar()" class="cancel-button">Cancelar</button>
+  </div>
+
+</form>

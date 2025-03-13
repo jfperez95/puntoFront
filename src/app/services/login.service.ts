@@ -16,8 +16,7 @@ export class LoginService {
   private readonly authURL = 'http://107.22.135.175:8084/Auth';
 
 
-  constructor(private http: HttpClient) {
-   }
+  constructor(private http: HttpClient) {}
 
    login(user:FormData):Observable<any>{
     return this.http.post<any>(this.authURL, user);

@@ -1,0 +1,109 @@
+body {
+  margin: 0;
+  padding: 20px; /* Espacio alrededor de la página */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f9fc; /* Fondo de la página */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.modern-form {
+  max-width: 600px; /* Ancho más amplio */
+  width: 100%; /* Ocupar todo el ancho disponible */
+  margin: 40px auto;
+  padding: 30px; /* Más espacio interno */
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+.modern-form:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.8em;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #34495e;
+  font-weight: bold;
+}
+
+input, select, textarea {
+  width: calc(100% - 30px); /* Tamaño uniforme para inputs y selects */
+  padding: 12px 15px;
+  border: none;
+  border-radius: 30px; /* Borde más redondeado */
+  background-color: #f3f4f6;
+  color: #2c3e50;
+  font-size: 1em;
+  transition: box-shadow 0.3s;
+  box-sizing: border-box; /* Para mantener consistencia en el tamaño */
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
+}
+
+select {
+  appearance: none; /* Ocultar la flecha del select */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 5'%3E%3Cpath fill='%233498db' d='M0 0l5 5 5-5H0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px 12px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+button {
+  width: calc(100% - 30px); /* Botón del mismo tamaño que los inputs */
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  margin-top: 15px;
+  box-sizing: border-box;
+}
+
+button:hover {
+  background-color: #2980b9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+/* Estilos específicos para el botón de cancelar */
+.cancel-button {
+  background-color: #e74c3c; /* Rojo */
+  margin-top: 15px;
+}
+
+.cancel-button:hover{
+  background-color: #d62c1a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
