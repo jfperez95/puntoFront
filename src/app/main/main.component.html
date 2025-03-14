@@ -1,4 +1,6 @@
-<div>
+<app-formulario-editar *ngIf="editar" [registroEditar]="editarCita" (cancelar)="cancelarEdicion($event)"></app-formulario-editar>
+
+<div *ngIf="main">
   <h1 class="titulo">LISTADO DE CITAS</h1>
 
   <div class="crearBuscar">
@@ -33,6 +35,24 @@
       <ng-container matColumnDef="nombrePuntoServicio">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre del Punto de Servicio </th>
         <td mat-cell *matCellDef="let element" class="tarea-cell"> {{element.nombrePuntoServicio}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef> Editar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="onEdit(element)" [style.cursor]="'pointer'">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="borrar">
+        <th mat-header-cell *matHeaderCellDef> Borrar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="onDelete(element)" [style.cursor]="'pointer'">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="columnas"></tr>

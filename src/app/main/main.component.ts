@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MainService } from '../services/main.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,8 +7,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { FormularioEditarComponent } from "../formulario-editar/formulario-editar.component";
+import { response } from 'express';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-main',
@@ -19,18 +23,25 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatPaginator
-  ],
+    MatPaginator,
+    MatIconModule,
+    FormularioEditarComponent
+],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
 
   citas:any;
+  editarCita:any
+  editar:boolean
+  main:boolean
   dataSource:MatTableDataSource<any> = new MatTableDataSource<any, MatPaginator>([]);
-  columnas = ['id', 'nombreCliente', 'fechaCita', 'nombreTecnico', 'nombrePuntoServicio']
+  columnas = ['id', 'nombreCliente', 'fechaCita', 'nombreTecnico', 'nombrePuntoServicio', 'editar', 'borrar']
 
-  constructor(private mainService:MainService){
+  constructor(private mainService:MainService, private alert: MatSnackBar){
+    this.main = true;
+    this.editar = false;
 
   }
 
@@ -41,6 +52,10 @@ export class MainComponent {
     this.getData();
   }
 
+  ngAfterViewInit(){
+    this.getData();
+  }
+
   async getData(){
     this.citas = await firstValueFrom(this.mainService.getCitas());
     if(this.citas !== null){
@@ -48,7 +63,6 @@ export class MainComponent {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }
-    console.log(this.citas);
   }
 
   applyFilter(event: Event){
@@ -76,6 +90,35 @@ export class MainComponent {
         return false; // Si no es ni número ni string, ignorar
       });
     };
+  }
+
+  onEdit(element:any){
+    this.editarCita = element;
+    this.editar = true;
+    this.main = false;
+  }
+
+  cancelarEdicion(e: boolean){
+    this.ngAfterViewInit();
+    this.main = true;
+    this.editar = false;
+  }
+
+  onDelete(event:any){
+    this.mainService.borrarCita(event.id).subscribe({
+      next:(response)=>{
+        if(response.status == 204){
+          this.alert.open("El registro se borro exitosamente", "Cerrar", { duration: 4000 });
+          this.ngOnInit();
+        }else{
+          this.alert.open("Hubo un error", "Cerrar", { duration: 4000 });
+        }
+      },
+      error: (error) => {
+        this.alert.open('Ocurrio un error verifique nuevamente', 'Cerrar', {duration: 4000});
+      }
+    });
+
   }
 
 }

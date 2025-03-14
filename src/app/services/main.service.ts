@@ -17,4 +17,8 @@ export class MainService {
   getCitas(){
     return this.http.get<any>(`${this.apiURL}/citas`)
   }
+
+  borrarCita(citaId:any){
+    return this.http.delete<any>(`${this.apiURL}/citas/${citaId}`, {headers:(this.httpOptions as any).headers, observe: 'response'});
+  }
 }

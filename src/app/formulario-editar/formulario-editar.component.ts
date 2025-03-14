@@ -1,44 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, Input, Output, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormularioService } from '../services/formulario.service';
 import { firstValueFrom } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import { response } from 'express';
-import { error } from 'console';
-import { FormularioEditarComponent } from "../formulario-editar/formulario-editar.component";
 
 @Component({
-  selector: 'app-formulario',
-  standalone:true,
+  selector: 'app-formulario-editar',
   imports: [
     CommonModule,
     ReactiveFormsModule
-],
-  templateUrl: './formulario.component.html',
-  styleUrl: './formulario.component.scss'
+  ],
+  templateUrl: './formulario-editar.component.html',
+  styleUrl: './formulario-editar.component.scss'
 })
-export class FormularioComponent {
+export class FormularioEditarComponent {
 
-  cliente:any
-  tecnicos:any
-  puntoServicio:any
-  usuario:any
-  accion:any
-  nombre:any
-  errorFecha:any
-  minFecha:any
   form:FormGroup;
+  tecnicos:any;
+  minFecha:any;
+  usuario:any;
+  accion:any;
+  nombre:any;
+  cliente:any;
+  errorFecha:any;
+  tecnicoEncontrado:any;
 
-  constructor(private formularioService:FormularioService,
-    private fb:FormBuilder,
-    private Router:Router,
-    private alert:MatSnackBar
+
+  @Input() registroEditar: any;
+  @Output() cancelar = new EventEmitter<boolean>()
+
+  constructor(
+    private formularioService:FormularioService,
+    private fb: FormBuilder,
+    private alert: MatSnackBar,
+    private router:Router
   ){
     this.form = this.fb.group({
-      accion:['', Validators.required],
-      user: ['', Validators.required],
+      accion:[''],
+      user: [''],
       nombreCliente: [{ value: '', disabled: true }, Validators.required],
       fechaCita: ['', Validators.required],
       idTecnico: ['', Validators.required]
@@ -47,13 +49,29 @@ export class FormularioComponent {
 
   async ngOnInit(){
     this.tecnicos = await firstValueFrom(this.formularioService.getTecnicos());
-    this.puntoServicio = await firstValueFrom(this.formularioService.getPuntoServicio());
     const ahora = new Date();
     this.minFecha = ahora.toISOString().slice(0, 16);
+    this.createForm();
+    const tecnicoEncontrado = (this.tecnicos as Array<{ id: number; nombre: string; abreDomingo:boolean }>)
+        .find(tecnico => tecnico.nombre === this.registroEditar.nombreTecnico);
+  }
+
+  onCancelar(){
+    this.cancelar.emit(false);
   }
 
   valorAccion(event:any){
     this.accion = event.target.value;
+  }
+
+  createForm(){
+    this.tecnicoEncontrado = (this.tecnicos as Array<{ id: number; nombre: string; abreDomingo:boolean }>)
+        .find(tecnico => tecnico.nombre === this.registroEditar.nombreTecnico);
+    this.form.patchValue({
+      nombreCliente: this.registroEditar.nombreCliente,
+      fechaCita: this.registroEditar.fechaCita,
+      idTecnico: this.tecnicoEncontrado?.id
+    })
   }
 
   async verificarUsuario(event:any){
@@ -81,7 +99,6 @@ export class FormularioComponent {
         // Actualizar el campo nombreCliente en el formulario
         this.form.patchValue({ nombreCliente: this.nombre });
       } else {
-        console.error("Cliente no encontrado o sin datos");
         this.alert.open("No se encontraron datos para el usuario ingresado", "Cerrar", { duration: 4000 });
 
         // Si no hay nombre, limpiar el campo
@@ -97,17 +114,18 @@ export class FormularioComponent {
     const fechaCita = new Date(fechaCitaRaw);
     const fechaCitaSQL = fechaCita.toISOString();
     const guardar = {
-      nombreCliente: this.nombre,
+      id: this.registroEditar.id,
+      nombreCliente: this.form.get('nombreCliente')?.value,
       fechaCita: fechaCitaSQL,
       idTecnico: this.form.get('idTecnico')?.value
     }
 
-    this.formularioService.postCitas(guardar).subscribe({
+    this.formularioService.editarCita(this.registroEditar.id, guardar).subscribe({
       next:(response) =>{
-        const respuesta = response;
-        if(respuesta.status != '201'){
-          this.alert.open('Registro guardado exitosamente', 'Cerrar', {duration: 4000});
-          this.Router.navigate(['/main'])
+        if(response.status === 200 || response.status === 204){//Si se cumple la condicion significa que se guardo el registro
+          this.alert.open('Registro actualizado exitosamente', 'Cerrar', {duration: 4000});
+          this.cancelar.emit(false);
+          this.router.navigate(['/main'])//Se redirecciona a la main
         }else{
           this.alert.open('Ocurrio un error verifique nuevamente', 'Cerrar', {duration: 4000});
         }
@@ -127,7 +145,7 @@ export class FormularioComponent {
     const tecnicoEncontrado = (this.tecnicos as Array<{ id: number; nombre: string; abreDomingo:boolean }>)
         .find(tecnico => tecnico.id === Number(idTecnicoSeleccionado));
 
-    // Convertir fechaCitaRaw correctamente al formato UTC
+    // Convertir `fechaCitaRaw` correctamente al formato UTC
     const fechaCita = new Date(`${fechaCitaRaw}:00.000Z`);
     const ahora = new Date(); // Fecha y hora actual
     const diaSemana = fechaCita.getUTCDay(); // 0 = Domingo, 6 = Sábado
@@ -166,7 +184,4 @@ export class FormularioComponent {
     this.errorFecha = "";
   }
 
-  onCancelar(){
-    this.Router.navigate(['/main'])
-  }
 }

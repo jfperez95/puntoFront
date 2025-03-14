@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from '../services/login.service';
 
@@ -31,6 +32,7 @@ export class LoginComponent {
   }
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private alerts: MatSnackBar,
     private loginService:LoginService
@@ -39,6 +41,12 @@ export class LoginComponent {
       correo: ['', Validators.required],
       password: ['', Validators.required]
     })
+  }
+
+  ngOnInit(){
+    if(localStorage.getItem('token') !== null){
+      this.router.navigate(['/main']); // Si ya está autenticado, redirigir a main
+    }
   }
 
   onSubmit(){
@@ -55,6 +63,7 @@ export class LoginComponent {
           this.alerts.open(this.success.mensaje, '', { verticalPosition: 'bottom', horizontalPosition: 'right', panelClass: ['snackbar'], duration: 5000 });
         }else{
           this.loginService.setItem('token', this.success.datos.token)
+          this.router.navigate(['/main']);
         }
       },
       error: (error) => {

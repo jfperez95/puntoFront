@@ -36,6 +36,11 @@ export class FormularioService {
   }
 
   postCitas(cita:object){
-    return this.http.post<any>(`${this.apiURL}/cita`, cita, this.httpOptions)
+    return this.http.post<any>(`${this.apiURL}/citas`, cita, this.httpOptions);
   }
+
+  editarCita(citaId:any, cita:object){
+    return this.http.put<any>(`${this.apiURL}/citas/${citaId}`, cita, {headers:(this.httpOptions as any).headers, observe: 'response'})
+  }
+
 }
